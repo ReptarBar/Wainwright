@@ -1,0 +1,26 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>StormWall • Finished</title>
+<style>body{font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;background:#0b1220;color:#e5e7eb;padding:16px}
+.box{background:#111827;border:1px solid #1f2937;border-radius:10px;padding:16px;max-width:720px}
+a{color:#60a5fa} .cta{display:inline-block;margin-top:8px;background:#60a5fa;color:#0a0f1a;padding:8px 12px;border-radius:8px;font-weight:700;text-decoration:none}
+.small{font-size:12px;color:#9ca3af;margin-top:8px}
+</style></head><body>
+<div class="box">
+<h2>✅ The StormWall held. Clear skies ahead.</h2>
+<p>Everything ran to completion. If your issue persists, you can share your diagnostics with support.</p>
+<p><a id="openViewer" href="#">Open Diagnostics Viewer</a></p>
+<p id="donateLine"></p>
+<p><a id="donateBtn" class="cta" target="_blank" rel="noopener">Support the Developer</a></p>
+<p class="small" id="disc"></p>
+</div>
+<script>
+const url = browser.runtime.getURL("report/viewer.html");
+document.getElementById("openViewer").href = url;
+const line = browser.i18n.getMessage("donateLine");
+const link = browser.i18n.getMessage("donateUrl");
+const btnText = browser.i18n.getMessage("donateBtn") || "Support the Developer";
+document.getElementById("donateLine").textContent = line;
+const btn = document.getElementById("donateBtn"); btn.textContent = btnText; btn.href = link;
+document.getElementById("disc").textContent = browser.i18n.getMessage("disclaimer");
+</script>
+</body></html>

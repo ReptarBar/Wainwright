@@ -1,0 +1,35 @@
+{
+  "appName": {
+    "message": "StormWall"
+  },
+  "finishBanner": {
+    "message": "\u2705 The StormWall held. Clear skies ahead."
+  },
+  "donateLine": {
+    "message": "StormWall is free and maintained by an independent creator. If it helped today, you can support future updates"
+  },
+  "donateUrl": {
+    "message": "https://py.pl/YHELJtXcYYMBjbuRME3U6Q"
+  },
+  "donateBtn": {
+    "message": "Support the Developer"
+  },
+  "disclaimer": {
+    "message": "StormWall is an independent project and is not affiliated with the Thunderbird project."
+  },
+  "pacingLabel": {
+    "message": "Step pacing"
+  },
+  "pacing1": {
+    "message": "Quick (1s)"
+  },
+  "pacing2": {
+    "message": "Normal (2s)"
+  },
+  "pacing3": {
+    "message": "Calm (3s)"
+  },
+  "pacingSaved": {
+    "message": "Pacing saved"
+  }
+}
