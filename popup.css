@@ -1,6 +1,6 @@
 :root{--bg:#0f172a;--panel:#111827;--text:#e5e7eb;--muted:#9ca3af;--accent:#60a5fa;--ok:#34d399;--warn:#f59e0b;--err:#ef4444;--ring:#93c5fd}
-*{box-sizing:border-box}html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif}
-.container{width:420px;padding:16px}.section{background:var(--panel);border:1px solid #1f2937;border-radius:10px;padding:12px;margin-bottom:12px}
+*{box-sizing:border-box}html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;min-height:780px}
+.container{width:420px;padding:16px;min-height:740px}.section{background:var(--panel);border:1px solid #1f2937;border-radius:10px;padding:12px;margin-bottom:12px}
 h2{font-size:14px;margin:0 0 8px;color:#cbd5e1}.buttons{display:flex;gap:8px;flex-wrap:wrap}
 button{background:var(--accent);border:none;color:#0a0f1a;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:600}
 button.secondary{background:#1f2937;color:var(--text);border:1px solid #273249}button:focus{outline:2px solid #93c5fd;outline-offset:2px}

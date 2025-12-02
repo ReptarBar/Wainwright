@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
-  "name": "StormWall",
+  "name": "WayneWright",
   "version": "1.0.7",
-  "description": "StormWall runs common Thunderbird fixes with pacing, clear status, and built\u2011in guides + diagnostics.",
+  "description": "WayneWright runs common Thunderbird fixes with pacing, clear status, and built\u2011in guides + diagnostics.",
   "author": "Bardic Labs",
   "browser_specific_settings": {
     "gecko": {
@@ -30,7 +30,7 @@
   },
   "browser_action": {
     "default_icon": "assets/icon-64.png",
-    "default_title": "StormWall",
+    "default_title": "WayneWright",
     "default_popup": "popup.html"
   },
   "default_locale": "en"

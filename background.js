@@ -1,8 +1,30 @@
 /* global browser */
 let runHistory = [];
-async function getBrowserInfoSafe(){ try { return await (browser.runtime.getBrowserInfo ? browser.runtime.getBrowserInfo() : Promise.resolve({name:"Thunderbird", version:"unknown"})); } catch(e){ return {name:"Thunderbird", version:"unknown"}; } }
-async function getPlatformSafe(){ try { return await (browser.runtime.getPlatformInfo ? browser.runtime.getPlatformInfo() : Promise.resolve({os:"unknown", arch:"unknown"})); } catch(e){ return {os:"unknown", arch:"unknown"}; } }
-async function listAccountsSafe(){ try { return await (browser.accounts && browser.accounts.list ? browser.accounts.list(true) : Promise.resolve([])); } catch(e){ return []; } }
+
+async function getBrowserInfoSafe(){
+  try {
+    return await (browser.runtime.getBrowserInfo ? browser.runtime.getBrowserInfo() : Promise.resolve({name:"Thunderbird", version:"unknown"}));
+  } catch(e){
+    return {name:"Thunderbird", version:"unknown"};
+  }
+}
+
+async function getPlatformSafe(){
+  try {
+    return await (browser.runtime.getPlatformInfo ? browser.runtime.getPlatformInfo() : Promise.resolve({os:"unknown", arch:"unknown"}));
+  } catch(e){
+    return {os:"unknown", arch:"unknown"};
+  }
+}
+
+async function listAccountsSafe(){
+  try {
+    return await (browser.accounts && browser.accounts.list ? browser.accounts.list(true) : Promise.resolve([]));
+  } catch(e){
+    return [];
+  }
+}
+
 browser.runtime.onMessage.addListener(async (msg, sender) => {
   if (!msg || !msg.cmd) return;
   if (msg.cmd === "compactSequential") {
@@ -28,12 +50,26 @@ browser.runtime.onMessage.addListener(async (msg, sender) => {
     const platform = await getPlatformSafe();
     const addons = await (browser.management ? browser.management.getAll() : Promise.resolve([]));
     const accounts = await listAccountsSafe();
+    const manifest = browser.runtime.getManifest ? browser.runtime.getManifest() : {};
+    const selections = Array.isArray(msg.selections) ? msg.selections : [];
     const lines = [];
-    lines.push("StormWall Diagnostics"); lines.push("--------------------");
+    lines.push("WayneWright Diagnostics");
+    lines.push("--------------------");
     lines.push(`Generated: ${new Date().toISOString()}`);
     lines.push(`App: ${browserInfo.name} ${browserInfo.version}`);
-    lines.push(`Platform: ${platform.os} ${platform.arch}`); lines.push("");
-    lines.push("Add-ons:"); addons.forEach(a => lines.push(`- ${a.name} ${a.version} [${a.enabled ? "enabled":"disabled"}]`)); lines.push("");
+    lines.push(`Platform: ${platform.os} ${platform.arch}`);
+    lines.push(`Extension: ${manifest.name || "WayneWright"} ${manifest.version || ""}`);
+    lines.push("");
+    lines.push("Routines selected this run:");
+    if (selections.length) {
+      selections.forEach(s => lines.push(`- ${s}`));
+    } else {
+      lines.push("- (not provided)");
+    }
+    lines.push("");
+    lines.push("Add-ons:");
+    addons.forEach(a => lines.push(`- ${a.name} ${a.version} [${a.enabled ? "enabled":"disabled"}]`));
+    lines.push("");
     if (accounts.length) {
       lines.push("Accounts and folders:");
       for (const acc of accounts) {
@@ -50,8 +86,8 @@ browser.runtime.onMessage.addListener(async (msg, sender) => {
       }
       lines.push("");
     }
-    lines.push("Recent StormWall events:");
+    lines.push("Recent WayneWright events:");
     runHistory.slice(-50).forEach(ev => lines.push(`- ${new Date(ev.t).toISOString()} ${ev.event} ${ev.count || ""}`));
-    return lines.join("\\n");
+    return lines.join("\n");
   }
 });
