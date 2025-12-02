@@ -7,8 +7,15 @@ function log(type, msg){
   const text = document.createElement('div'); text.textContent = msg; line.appendChild(text);
   const target = $('#log'); if (target) { target.appendChild(line); target.scrollTop = target.scrollHeight; }
 }
-async function getPacing(){ const s = await browser.storage.local.get('stormwall_pacing'); return Number(s.stormwall_pacing || 2000); }
-async function setPacing(ms){ await browser.storage.local.set({stormwall_pacing: Number(ms)}); }
+async function getPacing(){
+  const s = await browser.storage.local.get({ waynewright_pacing: null, stormwall_pacing: null });
+  return Number((s.waynewright_pacing ?? s.stormwall_pacing) || 2000);
+}
+async function setPacing(ms){
+  const val = Number(ms);
+  await browser.storage.local.set({ waynewright_pacing: val });
+  await browser.storage.local.remove('stormwall_pacing');
+}
 function showSpotlightTip(text){
   const ov = document.createElement('div'); ov.style.position='fixed'; ov.style.inset='0'; ov.style.background='rgba(0,0,0,.6)';
   ov.style.display='grid'; ov.style.placeItems='center'; ov.style.zIndex=9999;
@@ -55,10 +62,11 @@ const stepsCatalog = {
     },
     preview: "Refresh address books or show where to repair." },
   diagnostics: { label: "Log and export diagnostics",
-    run: async (minMs) => {
+    run: async (minMs, context) => {
       const t0 = Date.now();
-      const txt = await browser.runtime.sendMessage({cmd:"makeDiagnosticsText"});
-      await browser.storage.local.set({ stormwall_lastReport: txt });
+      const txt = await browser.runtime.sendMessage({cmd:"makeDiagnosticsText", selections: context && context.selections });
+      await browser.storage.local.set({ waynewright_lastReport: txt });
+      await browser.storage.local.remove('stormwall_lastReport');
       const elapsed = Date.now()-t0; const delay = Math.max(0, minMs - elapsed); if (delay) await sleep(delay);
       log('ok',"Diagnostics generated.");
       const viewerUrl = browser.runtime.getURL("report/viewer.html");
@@ -77,7 +85,7 @@ async function runQueue(){
   const minMs = await getPacing();
   for (const id of steps) {
     const item = stepsCatalog[id];
-    try { log('info', `Starting: ${item.label}`); await item.run(minMs); completed += 1; log('ok', `Done: ${item.label} (${completed} of ${total})`); }
+    try { log('info', `Starting: ${item.label}`); await item.run(minMs, { selections: steps }); completed += 1; log('ok', `Done: ${item.label} (${completed} of ${total})`); }
     catch(e){ log('err', `Issue: ${item.label} - ${e.message}`); if (stopOnFail) break; }
   }
   const finishUrl = browser.runtime.getURL("finish/done.html");

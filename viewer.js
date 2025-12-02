@@ -1,8 +1,8 @@
 /* global browser */
 async function loadReport(){
   try{
-    const data = await browser.storage.local.get("stormwall_lastReport");
-    const txt = data.stormwall_lastReport || "No report found. Run Diagnostics from StormWall.";
+    const data = await browser.storage.local.get({ waynewright_lastReport: null, stormwall_lastReport: null });
+    const txt = data.waynewright_lastReport || data.stormwall_lastReport || "No report found. Run Diagnostics from WayneWright.";
     document.getElementById('content').textContent = txt;
     const disc = browser.i18n.getMessage("disclaimer");
     const el = document.getElementById('disc'); if (el) el.textContent = disc || "";
@@ -19,7 +19,7 @@ async function saveReport(){
   const txt = document.getElementById('content').textContent;
   const blob = new Blob([txt], {type:"text/plain"});
   const url = URL.createObjectURL(blob);
-  await browser.downloads.download({ url, filename: `stormwall-report-${new Date().toISOString().slice(0,10)}.txt`, saveAs: true });
+  await browser.downloads.download({ url, filename: `waynewright-report-${new Date().toISOString().slice(0,10)}.txt`, saveAs: true });
 }
 document.addEventListener('DOMContentLoaded', ()=>{
   document.getElementById('copyBtn').addEventListener('click', copyReport);
