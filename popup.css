@@ -1,3 +1,25 @@
+/*
+ * WayneWright is an auto-fix tool for common Thunderbird issues.
+ * It helps users quickly resolve problems without digging into configs.
+ *
+ * Copyright (C) 2025  Michael H. Ellis, Commit Confidential
+ * Contact: https://github.com/ReptarBar/
+ *          ReptarBar [at] commitconfidential [dot] com
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 :root{--bg:#0f172a;--panel:#111827;--text:#e5e7eb;--muted:#9ca3af;--accent:#60a5fa;--ok:#34d399;--warn:#f59e0b;--err:#ef4444;--ring:#93c5fd}
 *{box-sizing:border-box}html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:system-ui,Segoe UI,Roboto,Arial,sans-serif;min-height:780px}
 .container{width:420px;padding:16px;min-height:740px}.section{background:var(--panel);border:1px solid #1f2937;border-radius:10px;padding:12px;margin-bottom:12px}
