@@ -8,7 +8,7 @@ a{color:#60a5fa} .cta{display:inline-block;margin-top:8px;background:#60a5fa;col
 <div class="box">
 <h2 id="finishHeader">✅ WayneWright tune-up complete. Back on the road in no time.</h2>
 <p>Everything ran to completion. If your issue persists, you can share your diagnostics with support.</p>
-<p><a id="openViewer" href="#">Open Diagnostics Viewer</a></p>
+<p><a id="openViewer" href="../report/viewer.html">Open Diagnostics Viewer</a></p>
 <p id="donateLine"></p>
 <p><a id="donateBtn" class="cta" target="_blank" rel="noopener" href="https://www.paypal.com/paypalme/commitconfidential">Support the Developer</a></p>
 <p class="small" id="disc"></p>
@@ -16,8 +16,11 @@ a{color:#60a5fa} .cta{display:inline-block;margin-top:8px;background:#60a5fa;col
 <script>
 const webext = typeof browser !== "undefined" ? browser : (typeof chrome !== "undefined" ? chrome : null);
 const viewerLink = document.getElementById("openViewer");
+const viewerPath = "report/viewer.html";
 if (webext?.runtime?.getURL) {
-  viewerLink.href = webext.runtime.getURL("report/viewer.html");
+  viewerLink.href = webext.runtime.getURL(viewerPath);
+} else {
+  viewerLink.href = new URL(`../${viewerPath}`, window.location.href).href;
 }
 const getMessage = key => webext?.i18n?.getMessage ? webext.i18n.getMessage(key) : "";
 const line = getMessage("donateLine") || "";
