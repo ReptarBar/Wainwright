@@ -5,9 +5,9 @@
   "finishBanner": {
     "message": "\u2705 WayneWright tune-up complete. Back on the road in no time."
   },
-  "donateLine": {
-    "message": "WayneWright is free and maintained by an independent creator. If it helped today, you can support future updates"
-  },
+ "donateLine": {
+  "message": "WayneWright is free and maintained by an independent creator.\nIf it helped today, you can support future updates."
+},
   "donateUrl": {
     "message": "https://www.paypal.com/paypalme/commitconfidential"
   },
