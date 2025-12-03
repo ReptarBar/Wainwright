@@ -1,0 +1,87 @@
+# WayneWright
+
+WayneWright is an automatic fixer wagon for Thunderbird. It helps you repair a small set of common problems without digging through hidden settings or long support threads. The add-on walks you through each change in plain language and only touches the areas it knows how to fix safely.
+
+## What WayneWright does
+
+- Checks for a small set of known, common Thunderbird issues
+- Explains each proposed fix in clear, non-technical language
+- Lets you choose which fixes to apply and which to skip
+- Keeps changes focused and minimal so you stay in control
+- Offers links to short help text when a manual tweak is better
+
+WayneWright is an independent project and is not affiliated with the Thunderbird project.
+
+---
+
+## Installing WayneWright from GitHub (temporary sideload)
+
+Right now WayneWright is shared as source code on GitHub. To try it in Thunderbird you can load it as a temporary add-on.
+
+### 1. Download and extract the ZIP
+
+1. Go to the WayneWright repository on GitHub.
+2. Click the green **Code** button.
+3. Choose **Download ZIP**.
+4. Save the ZIP file and extract it to a folder on your computer.
+   You should now see a folder that contains a `manifest.json` file.
+
+### 2. Load the add-on temporarily in Thunderbird
+
+1. Open **Thunderbird**.
+2. In the menu bar, go to:  
+   **Tools > Developer Tools > Debug Add-ons**.
+3. In the **Debugging This Thunderbird** section, click **Load Temporary Add-on**.
+4. In the file picker, navigate to the folder you extracted from the ZIP.
+5. Select the `manifest.json` file and confirm.
+
+Thunderbird will load WayneWright for this session. The add-on will disappear when Thunderbird restarts. To use it again, repeat the steps above and load `manifest.json` once more.
+
+This flow is ideal for testing or previewing the add-on while it is under active development.
+
+---
+
+## Using WayneWright
+
+After it is loaded, you can open WayneWright from the place the add-on integrates with Thunderbird (for example a toolbar button or menu entry, depending on your current build).
+
+From there:
+
+1. Run a check for supported issues.
+2. Review the fixes that WayneWright suggests.
+3. Choose which fixes to apply.
+4. Let WayneWright do the work, or follow the provided steps if a manual change is better.
+
+WayneWright will always try to explain what it is doing and keep changes small and focused.
+
+---
+
+## Privacy
+
+WayneWright is designed with a privacy first mindset.
+
+- No telemetry or tracking
+- No data is sent off your machine
+- All logic and checks run locally inside Thunderbird
+
+---
+
+## Supporting the project
+
+WayneWright is free and maintained by an independent creator.  
+If it helped you today and you want to support future updates, you can leave a small tip here:
+
+https://paypal.me/commitconfidential
+
+---
+
+## Feedback and issues
+
+If you run into a problem or have an idea for a new type of fix, please open an issue on the GitHub repository with:
+
+- Your Thunderbird version
+- Your operating system
+- A short description of what you were doing
+- Any error messages or screenshots that might help
+
+Thank you for trying WayneWright and helping improve it.
