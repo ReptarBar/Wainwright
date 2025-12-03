@@ -1,0 +1,35 @@
+{
+  "appName": {
+    "message": "WayneWright"
+  },
+  "finishBanner": {
+    "message": "\u2705 WayneWright-Check abgeschlossen. Im Handumdrehen wieder startklar."
+  },
+  "donateLine": {
+    "message": "WayneWright ist kostenlos und wird von einer unabhängigen Person gepflegt.\nWenn das Add-on Ihnen heute geholfen hat, können Sie zukünftige Updates unterstützen."
+  },
+  "donateUrl": {
+    "message": "https://www.paypal.me/commitconfidential"
+  },
+  "donateBtn": {
+    "message": "Entwickler unterstützen"
+  },
+  "disclaimer": {
+    "message": "WayneWright ist ein unabhängiges Projekt und steht in keiner Verbindung zum Thunderbird-Projekt."
+  },
+  "pacingLabel": {
+    "message": "Schrittgeschwindigkeit"
+  },
+  "pacing1": {
+    "message": "Schnell (1 s)"
+  },
+  "pacing2": {
+    "message": "Normal (2 s)"
+  },
+  "pacing3": {
+    "message": "Ruhig (3 s)"
+  },
+  "pacingSaved": {
+    "message": "Tempo gespeichert"
+  }
+}
