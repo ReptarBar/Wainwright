@@ -1,0 +1,51 @@
+[
+  {
+    "namespace": "experiments.waynewright",
+    "description": "WayneWright maintenance bridge to Thunderbird internals.",
+    "functions": [
+      {
+        "name": "compactAllFolders",
+        "type": "function",
+        "description": "Compact all folders across accounts with progress stats.",
+        "async": true,
+        "parameters": [
+          {
+            "name": "options",
+            "optional": true,
+            "type": "object",
+            "properties": {
+              "maxRuntimeSeconds": {
+                "type": "integer",
+                "optional": true
+              }
+            }
+          }
+        ]
+      },
+      {
+        "name": "resetFolderPane",
+        "type": "function",
+        "description": "Reset folder pane state and notify observers.",
+        "async": true
+      },
+      {
+        "name": "refreshAddressBooks",
+        "type": "function",
+        "description": "Reload address books and clear cached data.",
+        "async": true
+      },
+      {
+        "name": "repairFolderIndexes",
+        "type": "function",
+        "description": "Force a repair of folder database summaries across accounts.",
+        "async": true
+      },
+      {
+        "name": "rebuildGlobalSearch",
+        "type": "function",
+        "description": "Restart the global search indexer to repair gloda searches.",
+        "async": true
+      }
+    ]
+  }
+]
