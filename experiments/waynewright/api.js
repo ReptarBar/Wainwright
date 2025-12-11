@@ -1,7 +1,7 @@
 var { ExtensionCommon } = ChromeUtils.importESModule("resource://gre/modules/ExtensionCommon.sys.mjs");
-var { Services } = ChromeUtils.importESModule("resource://gre/modules/Services.sys.mjs");
-var { MailServices } = ChromeUtils.importESModule("resource:///modules/MailServices.sys.mjs");
-var { GlodaIndexer } = ChromeUtils.importESModule("resource:///modules/gloda/Indexer.sys.mjs");
+var { Services } = ChromeUtils.import("resource://gre/modules/Services.jsm");
+var { MailServices } = ChromeUtils.import("resource:///modules/MailServices.jsm");
+var { GlodaIndexer } = ChromeUtils.import("resource:///modules/gloda/Indexer.jsm");
 
 const { Ci, Cu } = Components;
 

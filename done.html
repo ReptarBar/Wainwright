@@ -35,16 +35,5 @@ a{color:#60a5fa} .cta{display:inline-block;margin-top:8px;background:#60a5fa;col
 <p><a id="donateBtn" class="cta" target="_blank" rel="noopener">Support the Developer</a></p>
 <p class="small" id="disc"></p>
 </div>
-<script>
-const url = browser.runtime.getURL("report/viewer.html");
-document.getElementById("openViewer").href = url;
-const line = browser.i18n.getMessage("donateLine") || "";
-const link = browser.i18n.getMessage("donateUrl") || "https://www.paypal.com/paypalme/commitconfidential";
-const btnText = browser.i18n.getMessage("donateBtn") || "Support the Developer";
-document.getElementById("donateLine").textContent = line;
-const btn = document.getElementById("donateBtn"); btn.textContent = btnText; btn.href = link;
-const header = document.getElementById("finishHeader");
-header.textContent = browser.i18n.getMessage("finishBanner") || header.textContent;
-document.getElementById("disc").textContent = browser.i18n.getMessage("disclaimer");
-</script>
+<script src="done.js"></script>
 </body></html>

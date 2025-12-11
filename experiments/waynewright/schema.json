@@ -26,25 +26,29 @@
         "name": "resetFolderPane",
         "type": "function",
         "description": "Reset folder pane state and notify observers.",
-        "async": true
+        "async": true,
+        "parameters": []
       },
       {
         "name": "refreshAddressBooks",
         "type": "function",
         "description": "Reload address books and clear cached data.",
-        "async": true
+        "async": true,
+        "parameters": []
       },
       {
         "name": "repairFolderIndexes",
         "type": "function",
         "description": "Force a repair of folder database summaries across accounts.",
-        "async": true
+        "async": true,
+        "parameters": []
       },
       {
         "name": "rebuildGlobalSearch",
         "type": "function",
         "description": "Restart the global search indexer to repair gloda searches.",
-        "async": true
+        "async": true,
+        "parameters": []
       }
     ]
   }
