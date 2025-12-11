@@ -47,7 +47,7 @@ function showSpotlightTip(text){
   card.appendChild(document.createElement('br')); card.appendChild(btn); ov.appendChild(card); document.body.appendChild(ov);
 }
 
-const STEP_IDS = ["compactFolders","checkUpdates","resetFolderPane","clearAddressCache","diagnostics"];
+const STEP_IDS = ["compactFolders","checkUpdates","resetFolderPane","clearAddressCache","repairIndexes","rebuildSearch","diagnostics"];
 const stepsCatalog = {
   compactFolders: { label: "Compact folders",
     run: async (minMs) => {
@@ -83,6 +83,22 @@ const stepsCatalog = {
       if (ok) log('ok',"Address book cache cleared."); else { log('warn',"Manual step required. Showing how-to."); showSpotlightTip("Open Address Book → Select book → Properties → Repair."); }
     },
     preview: "Refresh address books or show where to repair." },
+  repairIndexes: { label: "Repair folder indexes",
+    run: async (minMs) => {
+      const t0 = Date.now();
+      const ok = await browser.runtime.sendMessage({cmd:"repairFolderIndexes"}).catch(()=>false);
+      const elapsed = Date.now()-t0; const delay = Math.max(0, minMs - elapsed); if (delay) await sleep(delay);
+      if (ok) log('ok',"Folder indexes are rebuilding."); else { log('warn',"Manual repair guide opened."); showSpotlightTip("Right click a folder → Properties → Repair to rebuild its index."); }
+    },
+    preview: "Force a repair on all non-virtual folders." },
+  rebuildSearch: { label: "Rebuild global search index",
+    run: async (minMs) => {
+      const t0 = Date.now();
+      const ok = await browser.runtime.sendMessage({cmd:"rebuildGlobalSearch"}).catch(()=>false);
+      const elapsed = Date.now()-t0; const delay = Math.max(0, minMs - elapsed); if (delay) await sleep(delay);
+      if (ok) log('ok',"Global search index restart requested."); else { log('warn',"Gloda reset not available; open Troubleshoot Mode guide for alternatives."); }
+    },
+    preview: "Restart Gloda indexing to unstick broken search." },
   diagnostics: { label: "Log and export diagnostics",
     run: async (minMs, context) => {
       const t0 = Date.now();
@@ -127,6 +143,8 @@ function updateHealth(){
   else {
     if (picks.includes("compactFolders")) lines.push("Good call: Compact often fixes slow or bloated folders.");
     if (picks.includes("diagnostics")) lines.push("Diagnostics helps support help you faster if needed.");
+    if (picks.includes("repairIndexes")) lines.push("Folder index repair can restore missing message bodies.");
+    if (picks.includes("rebuildSearch")) lines.push("Rebuilding search fixes stale global search results.");
     if (!picks.includes("checkUpdates")) lines.push("Consider adding Add-on updates to get recent fixes.");
   }
   const hc = $('#healthCard'); if (hc) hc.textContent = lines.join("\\n") || "Everything looks steady. Choose what you need and press Run Fix.";

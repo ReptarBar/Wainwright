@@ -50,23 +50,60 @@ async function listAccountsSafe(){
 browser.runtime.onMessage.addListener(async (msg, sender) => {
   if (!msg || !msg.cmd) return;
   if (msg.cmd === "compactSequential") {
-    const accounts = await listAccountsSafe();
-    if (!accounts.length) { runHistory.push({t:Date.now(), event:"compactAttemptNoAPI"}); return true; }
-    let count = 0;
-    for (const acc of accounts) {
-      const stack = [...(acc.folders || [])];
-      while (stack.length) {
-        const f = stack.shift();
-        if (f && f.subFolders && f.subFolders.length) stack.push(...f.subFolders);
-        count++;
+    try {
+      if (browser.experiments && browser.experiments.waynewright) {
+        const res = await browser.experiments.waynewright.compactAllFolders({ maxRuntimeSeconds: 150 });
+        runHistory.push({ t: Date.now(), event: "compactRun", count: res?.compacted });
+        return true;
       }
+    } catch (e) {
+      runHistory.push({ t: Date.now(), event: "compactError" });
+      return false;
     }
-    runHistory.push({t:Date.now(), event:"compactWalk", count});
-    return true;
+    runHistory.push({ t: Date.now(), event: "compactAttemptNoAPI" });
+    return false;
   }
   if (msg.cmd === "logAddonsChecked") { runHistory.push({t:Date.now(), event:"addonsChecked", count: msg.count}); return true; }
-  if (msg.cmd === "resetFolderPane") { runHistory.push({t:Date.now(), event:"resetFolderPaneAttempt"}); return false; }
-  if (msg.cmd === "refreshAddressBooks") { runHistory.push({t:Date.now(), event:"refreshAddressAttempt"}); return false; }
+  if (msg.cmd === "resetFolderPane") {
+    try {
+      const ok = browser.experiments && browser.experiments.waynewright && await browser.experiments.waynewright.resetFolderPane();
+      runHistory.push({ t: Date.now(), event: "resetFolderPane", count: ok ? 1 : 0 });
+      return !!ok;
+    } catch (e) {
+      runHistory.push({ t: Date.now(), event: "resetFolderPaneError" });
+      return false;
+    }
+  }
+  if (msg.cmd === "refreshAddressBooks") {
+    try {
+      const res = browser.experiments && browser.experiments.waynewright && await browser.experiments.waynewright.refreshAddressBooks();
+      runHistory.push({ t: Date.now(), event: "refreshAddress", count: res?.refreshed });
+      return !!res;
+    } catch (e) {
+      runHistory.push({ t: Date.now(), event: "refreshAddressError" });
+      return false;
+    }
+  }
+  if (msg.cmd === "repairFolderIndexes") {
+    try {
+      const res = browser.experiments && browser.experiments.waynewright && await browser.experiments.waynewright.repairFolderIndexes();
+      runHistory.push({ t: Date.now(), event: "repairIndexes", count: res?.repaired });
+      return !!res;
+    } catch (e) {
+      runHistory.push({ t: Date.now(), event: "repairIndexesError" });
+      return false;
+    }
+  }
+  if (msg.cmd === "rebuildGlobalSearch") {
+    try {
+      const ok = browser.experiments && browser.experiments.waynewright && await browser.experiments.waynewright.rebuildGlobalSearch();
+      runHistory.push({ t: Date.now(), event: "rebuildSearch", count: ok ? 1 : 0 });
+      return !!ok;
+    } catch (e) {
+      runHistory.push({ t: Date.now(), event: "rebuildSearchError" });
+      return false;
+    }
+  }
   if (msg.cmd === "makeDiagnosticsText") {
     const browserInfo = await getBrowserInfoSafe();
     const platform = await getPlatformSafe();
