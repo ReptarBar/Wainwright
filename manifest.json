@@ -23,6 +23,16 @@
     "storage",
     "tabs"
   ],
+  "experiment_apis": {
+    "waynewright": {
+      "schema": "experiments/waynewright/schema.json",
+      "parent": {
+        "scopes": ["addon_parent"],
+        "paths": [["experiments", "waynewright"]],
+        "script": "experiments/waynewright/api.js"
+      }
+    }
+  },
   "background": {
     "scripts": [
       "background.js"
